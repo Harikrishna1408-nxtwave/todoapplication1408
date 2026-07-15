@@ -59,7 +59,8 @@ export const TodoList = styled.ul`
     overflow: hidden;`
 
 export const TodoItem = styled.li`
-    display: flex;  
+    display: flex;
+    text-decoration: ${props => (props.checked ? 'line-through' : 'none')};  
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;`
@@ -67,7 +68,7 @@ export const TodoItem = styled.li`
 export const DeleteButton = styled.button`
     margin-left: auto;
     padding: 5px 10px;
-    background-color: #ff4d4d;
+    background-color: #ff4d4d;    
     color: white;
     border: none;
     border-radius: 3px;

@@ -22,12 +22,13 @@ import {
 
 const TodoApp = () => {
     const [todos, setTodos] = useState([
-        { id: 1, text: 'Learn React' },
-        { id: 2, text: 'Build a Todo App' },
-        { id: 3, text: 'Master JavaScript' }
+        { id: 1, text: 'Learn React', checked: false },
+        { id: 2, text: 'Build a Todo App', checked: false },
+        { id: 3, text: 'Master JavaScript', checked: false }
     ]);
 
     const [errorMsg, setErrorMsg] = useState('');
+
 
     const handleInputChange = (event) => {
         setErrorMsg('');
@@ -54,6 +55,16 @@ const TodoApp = () => {
         setTodos(updatedTodos);
     }
 
+    const changeCheckedStatus = id => {
+        const updatedTodos = todos.map(todo =>
+        todo.id === id
+        ? {...todo, checked: !todo.checked}
+        : todo
+    );
+
+  setTodos(updatedTodos);
+};
+
     return (
         <TodoContainer>
             <TodoHeader>My TodoList</TodoHeader>
@@ -75,8 +86,10 @@ const TodoApp = () => {
                 <TodoList>
                     {todos.map(todo => (
                         <TodoItemContainer key={todo.id}>
-                        <input type="checkbox" key={todo.id} />
-                        <TodoItem key={todo.id}>{todo.text}</TodoItem>
+                        <input type="checkbox" key={todo.id} onChange={() => changeCheckedStatus(todo.id)} htmlFor={todo.id} />
+                        <TodoItem key={todo.id} checked={todo.checked}>
+                            {todo.text}
+                        </TodoItem>
                         <DeleteButton onClick={() => DeleteTodo(todo.id)}>
                             <MdDelete />
                         </DeleteButton>
