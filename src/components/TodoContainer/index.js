@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 import EmptyTodo from '../EmptyTodo';
 
-import { MdDelete } from "react-icons/md";
+import { MdDelete ,MdEdit } from "react-icons/md";
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +17,9 @@ import {
     LabelElement,
     Button,
     DeleteButton,
-    EmptyInputTextMsg
+    EditButton,
+    EmptyInputTextMsg,
+    ButtonsContainer
 } from './styledComponents';
 
 const TodoApp = () => {
@@ -54,6 +56,16 @@ const TodoApp = () => {
         const updatedTodos = todos.filter(todo => todo.id !== id);
         setTodos(updatedTodos);
     }
+    
+    const EditTodo = (id) => {
+        const updatedTodos = todos.map(todo => {
+            if (todo.id === id) {
+                return { ...todo, text: prompt('Edit todo:', todo.text) || todo.text };
+            }
+            return todo;
+        });
+        setTodos(updatedTodos);
+    };
 
     const changeCheckedStatus = id => {
         const updatedTodos = todos.map(todo =>
@@ -86,13 +98,19 @@ const TodoApp = () => {
                 <TodoList>
                     {todos.map(todo => (
                         <TodoItemContainer key={todo.id}>
-                        <input type="checkbox" key={todo.id} onChange={() => changeCheckedStatus(todo.id)} htmlFor={todo.id} />
-                        <TodoItem key={todo.id} checked={todo.checked}>
-                            {todo.text}
-                        </TodoItem>
-                        <DeleteButton onClick={() => DeleteTodo(todo.id)}>
-                            <MdDelete />
-                        </DeleteButton>
+                            <input type="checkbox" key={todo.id} onChange={() => changeCheckedStatus(todo.id)} htmlFor={todo.id} />
+                            <TodoItem key={todo.id} checked={todo.checked}>
+                                {todo.text}
+                            </TodoItem>
+
+                            <ButtonsContainer>
+                                <EditButton onClick={() => EditTodo(todo.id)}>
+                                    <MdEdit />
+                                </EditButton>
+                                <DeleteButton onClick={() => DeleteTodo(todo.id)}>
+                                    <MdDelete />
+                                </DeleteButton>
+                            </ButtonsContainer>
                         </TodoItemContainer>
                     ))}
                 </TodoList>

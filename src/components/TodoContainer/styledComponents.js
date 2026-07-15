@@ -81,6 +81,7 @@ export const DeleteButton = styled.button`
 export const TodoItemContainer = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `
 
 export const EmptyInputTextMsg = styled.p`
@@ -88,3 +89,21 @@ export const EmptyInputTextMsg = styled.p`
     font-size: 14px;
     margin-top: 5px;
 `
+
+export const EditButton = styled.button`
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #1b1b3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        background-color: #000033;
+    }
+`;
+
+export const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+`;
